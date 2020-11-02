@@ -199,6 +199,7 @@ class EmbedCreator(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def usersend(self, ctx, name: str):
         """Send a saved embed in the current channel."""
+        channel = ctx.channel
         embeds_stored = await self.config.guild(ctx.guild).embeds()
         if name not in embeds_stored:
             return await ctx.send("This embed doesn't exist.")
