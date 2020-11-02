@@ -196,6 +196,16 @@ class EmbedCreator(commands.Cog):
         await self.build_embed(ctx, data=data, channel=channel)
 
     @embed.command()
+    @commands.bot_has_permissions(embed_links=True)
+    async def usersend(self, ctx, name: str):
+        """Send a saved embed in the current channel."""
+        embeds_stored = await self.config.guild(ctx.guild).embeds()
+        if name not in embeds_stored:
+            return await ctx.send("This embed doesn't exist.")
+        data = embeds_stored[name]["data"]
+        await self.build_embed(ctx, data=data, channel=channel)
+
+    @embed.command()
     @commands.admin_or_permissions(manage_guild=True)
     async def delete(self, ctx, *, name: str):
         """Delete a saved embed."""
